@@ -1,8 +1,14 @@
 #pragma once
 #include <cstdint>
 #include <array>
+#include "crc_tables.h"
 
 namespace lidar{
+     namespace verification{ // forward declaration
+          template<typename packet_type, std::size_t crc_table_size>
+          std::uint8_t crc8(packet_type& packet, const std::array<std::uint8_t, crc_table_size>& crc_table);
+     }
+
      static constexpr std::size_t points_per_packet_default = 12;
      static constexpr std::uint8_t frame_header_signature = 0x54;
 
@@ -23,6 +29,11 @@ namespace lidar{
           std::uint16_t end_angle;
           std::uint16_t timestamp;
           std::uint8_t crc8; // This field is filled last, after CRC calculation
+
+          //Returns `true` if no corruption is detected; otherwise, returns `false`
+          bool intact() const {
+               return crc8 == verification::crc8(*this, verification::ld_19_crc_table);
+          }
      };
 
      #pragma pack(pop)
