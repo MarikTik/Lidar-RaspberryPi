@@ -10,17 +10,17 @@ namespace lidar{
 
      struct Point{
           std::uint16_t distance;
-          std::uint16_t angle;
+          std::uint16_t intensity;
      };
 
      template<std::size_t points_per_frame = points_per_packet_default>
      struct Packet{
           std::uint8_t header;
-          std::uint8_t verLen;
+          std::uint8_t ver_len;
           std::uint16_t speed;
-          std::uint16_t startAngle;
+          std::uint16_t start_angle;
           lidar::Point measurments[points_per_frame];
-          std::uint16_t endAngle;
+          std::uint16_t end_angle;
           std::uint16_t timestamp;
           std::uint8_t crc8; // This field is filled last, after CRC calculation
      };
