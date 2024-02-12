@@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 3.22.1)
  
 project(lidar)
  
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/lidar.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     add_compile_options(-Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor
