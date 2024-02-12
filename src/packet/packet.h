@@ -19,7 +19,7 @@ namespace lidar{
           std::uint8_t ver_len;
           std::uint16_t speed;
           std::uint16_t start_angle;
-          lidar::Point measurments[points_per_frame];
+          lidar::Point points[points_per_frame];
           std::uint16_t end_angle;
           std::uint16_t timestamp;
           std::uint8_t crc8; // This field is filled last, after CRC calculation
