@@ -3,7 +3,7 @@
 
 
 namespace lidar{
-     static constexpr std::size_t measurements_per_frame_default = 12;
+     static constexpr std::size_t measurements_per_packet_default = 12;
      static constexpr std::uint8_t frame_header_signature = 0x54;
 
      #pragma pack(push, 1)  
@@ -13,8 +13,8 @@ namespace lidar{
           std::uint16_t angle;
      };
 
-     template<std::size_t measurements_per_frame = measurements_per_frame_default>
-     struct Frame{
+     template<std::size_t measurements_per_frame = measurements_per_packet_default>
+     struct Packet{
           std::uint8_t header;
           std::uint8_t verLen;
           std::uint16_t speed;
