@@ -1,6 +1,4 @@
-#include <cstdint>
-#include <iostream>  
-
-int main(){
-   
+ 
+int main() {
+  
 }

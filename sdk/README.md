@@ -19,7 +19,6 @@ bash
 cd ~/ldlidar_ws/ldlidar_stl_sdk
 
 
-
 ./auto_build.sh
 
 3. Execution
