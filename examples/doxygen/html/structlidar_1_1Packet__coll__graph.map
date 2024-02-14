@@ -1,0 +1,4 @@
+<map id="lidar::Packet&lt; points_per_frame &gt;" name="lidar::Packet&lt; points_per_frame &gt;">
+<area shape="rect" id="node1" title="Structure for receiving packets from a Lidar." alt="" coords="5,95,161,136"/>
+<area shape="rect" id="node2" href="$structlidar_1_1Point.html" title="Represents a single point of data from Lidar." alt="" coords="37,5,129,32"/>
+</map>
