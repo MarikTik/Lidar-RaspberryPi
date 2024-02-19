@@ -1,17 +1,15 @@
 #pragma once
 #include <type_traits>
 
-namespace lidar::transmission{
-     template<typename packet_type, typename = std::void_t<>>
-     struct PacketUID; // Forward declaration to make the specialization the primary template.
-     
-     //unique identifier for packets
-     template<typename packet_type>
-     struct PacketUID <packet_type, std::void_t<decltype(std::declval<packet_type>().uid())>>
-     { 
-          auto uid() -> decltype(static_cast<packet_type*>(this)->uid()){
-               return static_cast<packet_type*>(this)->uid();
-          }
-     };
+namespace lidar::transmission {
+    template<typename packet_type>
+    struct PacketUID {
+        static_assert(std::is_invocable_r_v<std::uint16_t, decltype(&packet_type::uid), packet_type>, 
+                      "packet_type must implement a uid() method returning std::uint16_t");
+
+        auto uid() -> decltype(static_cast<packet_type*>(this)->uid()) {
+            return static_cast<packet_type*>(this)->uid();
+        }
+    };
 }
 
