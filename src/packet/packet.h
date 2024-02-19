@@ -1,9 +1,8 @@
 #pragma once
 #include <cstdint>
 #include <array>
-#include <type_traits>
 #include <iomanip>
-#include "crc_tables.h"
+#include "packet_uid.h"
 
 namespace lidar {
      static constexpr std::size_t points_per_packet_default = 12; ///< Default number of points per packet
