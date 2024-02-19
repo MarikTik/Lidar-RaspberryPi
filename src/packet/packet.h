@@ -4,21 +4,10 @@
 #include <iomanip>
 #include "packet_uid.h"
 
-namespace lidar {
+namespace lidar::transmission {
      static constexpr std::size_t points_per_packet_default = 12; ///< Default number of points per packet
      static constexpr std::uint8_t frame_header_signature = 0x54; ///< Signature for the frame header
 
-     template<typename packet_type, typename = std::void_t<>>
-     struct PacketUID; // Forward declaration to make the specialization the primary template.
-     
-     //unique identifier for packets
-     template<typename packet_type>
-     struct PacketUID <packet_type, std::void_t<decltype(std::declval<packet_type>().uid())>>
-     { 
-          auto uid() -> decltype(static_cast<packet_type*>(this)->uid()){
-               return static_cast<packet_type*>(this)->uid();
-          }
-     };
 
      #pragma pack(push, 1)  
      /**
@@ -42,7 +31,7 @@ namespace lidar {
           std::uint8_t ver_len; ///< Version and length
           std::uint16_t speed; ///< Rotation speed
           std::uint16_t start_angle; ///< Angle at the start of the scan
-          lidar::PointData points[points_per_frame]; ///< Array of Lidar points
+          PointData points[points_per_frame]; ///< Array of Lidar points
           std::uint16_t end_angle; ///< Angle at the end of the scan
           std::uint16_t timestamp; ///< Timestamp of the packet
           std::uint8_t crc8; ///< CRC8 checksum, calculated last
