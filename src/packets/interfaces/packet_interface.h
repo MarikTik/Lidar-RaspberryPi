@@ -3,7 +3,7 @@
 #include <type_traits>
 #include <vector>
 #include <array>
-#include "../packet_base.h"
+#include "../types/packet_base.h"
 
 
 namespace lidar::transmission{
@@ -18,3 +18,5 @@ namespace lidar::transmission{
                static std::uint16_t packet_start(const std::array<std::uint8_t, sizeof(Packet)>& raw_bytes); // the first input of size Packet 
      };
 }
+
+#include "packet_interface.tpp"

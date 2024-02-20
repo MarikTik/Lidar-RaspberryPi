@@ -14,6 +14,7 @@ namespace lidar::transmission{
      };
 }
   
+#include "serial.tpp"
   
 
 

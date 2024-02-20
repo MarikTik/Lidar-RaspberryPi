@@ -10,7 +10,6 @@ namespace lidar::transmission{
                virtual std::vector<Packet> read(std::size_t amount) override;
                virtual ~TcpInterface() override;
      };
-
-  
-
 }
+
+#include "tcp.tpp"
