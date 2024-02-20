@@ -2,7 +2,7 @@
 #include <array>
 #include <cstdint>
 
-namespace lidar::tansmission::verification{
+namespace lidar::verification{
      namespace verification {
         template<typename packet_type, std::size_t crc_table_size>
         std::uint8_t crc8(packet_type& packet, const std::array<std::uint8_t, crc_table_size>& crc_table) {
