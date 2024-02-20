@@ -36,7 +36,7 @@ namespace lidar::transmission {
           std::uint16_t timestamp; ///< Timestamp of the packet
           std::uint8_t crc8; ///< CRC8 checksum, calculated last
 
-          constexpr std::uint16_t uid(){
+          static constexpr std::uint16_t uid(){
                return 0b1100001000101100;
           }
           template<std::size_t N>
