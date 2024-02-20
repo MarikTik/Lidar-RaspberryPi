@@ -1,4 +1,3 @@
-#pragma once
 #include "udp.h"
 
 namespace lidar::transmission{
