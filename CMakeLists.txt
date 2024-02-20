@@ -13,4 +13,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
                         -Wpedantic -Wconversion -Wsign-conversion -Wmisleading-indentation
                         -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wnull-dereference
                         -Wuseless-cast -Wdouble-promotion -Wformat=2 -Werror)
+
+find_library(PIGPIO_LIBRARY pigpio)
+target_link_libraries(${PROJECT_NAME} ${PIGPIO_LIBRARY})
 endif()
