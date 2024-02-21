@@ -9,7 +9,7 @@
 namespace lidar::transmission{
      template<typename Packet>
      class PacketInterface{
-          static_assert(std::is_base_of_v<PacketInterface<Packet>, Packet>, "Packet has to derive from PacketUID");
+          static_assert(std::is_base_of_v<PacketBase<Packet>, Packet>, "Packet has to derive from PacketUID");
           public:
                virtual std::vector<Packet> read(std::size_t amount) = 0;
                virtual ~PacketInterface() = 0;
