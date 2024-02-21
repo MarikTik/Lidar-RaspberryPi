@@ -20,7 +20,7 @@ namespace lidar::transmission{
 
           for (uint16_t i = 0; i < N; i++){
               (group <<= 8) |= bytes[i];
-              if (group == uid) return i + sizeof(uid_t);
+              if (group == uid) return i;
           }
           
           return UINT16_MAX; // not found, in the future will add error indication
