@@ -9,14 +9,16 @@
 namespace lidar::transmission{
      template<typename Packet>
      class PacketInterface{
-          static_assert(std::is_base_of_v<PacketBase<Packet>, Packet>, "Packet has to derive from PacketUID");
+          static_assert(std::is_base_of_v<PacketBase<Packet>, Packet>, "Packet has to derive from PacketBase");
           public:
                virtual std::vector<Packet> read(std::size_t amount) = 0;
                virtual ~PacketInterface() {};
 
           protected:
-               static std::uint16_t packet_start(const std::array<std::uint8_t, sizeof(Packet)>& raw_bytes); // the first input of size Packet 
+               template<typename Byte, size_t N>
+               static std::uint16_t offset(const Byte (&bytes)[N]); // the first input of size Packet 
      };
+
 }
 
 #include "packet_interface.tpp"
