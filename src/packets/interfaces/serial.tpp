@@ -3,14 +3,14 @@
 namespace lidar::transmission{
      template<typename Packet>
      SerialInterface<Packet>::SerialInterface(const char* port, uint32_t baud_rate) 
-        : _serial_handle(serOpen(const_cast<char*>(port), baud_rate, 0))
+        : _handle(serOpen(const_cast<char*>(port), baud_rate, 0))
      {    
      }
 
      template<typename Packet>
      SerialInterface<Packet>::~SerialInterface() 
      {    
-        serClose(_serial_handle);
+        serClose(_handle);
      }
     
      template<typename Packet>

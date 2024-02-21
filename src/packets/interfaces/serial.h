@@ -10,7 +10,7 @@ namespace lidar::transmission{
                ~SerialInterface() override;
                std::vector<Packet> read(std::size_t amount) override;
           private:
-               std::int16_t _serial_handle;
+               std::int16_t _handle;
      };
 }
   
