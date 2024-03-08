@@ -1,3 +1,4 @@
+#pragma once
 #include <atomic>
 #include <stdint.h>
 #include <unistd.h>
@@ -17,7 +18,8 @@ public:
      
      void close();
      
-     
+     bool is_opened() const;
+
      ~SerialStream();
      
      private:
