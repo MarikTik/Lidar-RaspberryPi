@@ -1,4 +1,4 @@
-#include "Point2D.h"
+#include "point2d.h"
 #include <cmath>
 
 lidar::data::Point2D::Point2D(double x, double y, uint8_t intensity, uint64_t stamp) 
