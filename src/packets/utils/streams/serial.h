@@ -1,20 +1,14 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/ioctl.h>
-#include <sys/select.h>
-#include <termios.h>
 #include <atomic>
+#include <stdint.h>
+#include <unistd.h>
 namespace internals{
      #include <linux/termios.h>
 }
-#include <errno.h>
-#include <string.h>
-#include <stdint.h>
 
-
-class Serial{
+class SerialStream{
 public:
+     SerialStream();
+
      bool open(const char* port, uint32_t baud_rate);
 
      ssize_t read(uint8_t *buffer, size_t size);
@@ -22,8 +16,9 @@ public:
      bool write(const uint8_t* buffer, size_t size);
      
      void close();
-
-     ~Serial();
+     
+     
+     ~SerialStream();
      
      private:
           int _serial_port;
