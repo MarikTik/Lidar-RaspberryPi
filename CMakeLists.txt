@@ -5,10 +5,10 @@ project(lidar)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+add_executable(${PROJECT_NAME} src/main.cpp)
+
 add_subdirectory(src)
 add_subdirectory(tests)
-
-add_executable(${PROJECT_NAME} src/main.cpp)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     add_compile_options(-Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor
@@ -17,6 +17,4 @@ if(CMAKE_COMPILER_IS_GNUCXX)
                         -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wnull-dereference
                         -Wuseless-cast -Wdouble-promotion -Wformat=2 -Werror)
 
-find_library(PIGPIO_LIBRARY pigpio)
-target_link_libraries(${PROJECT_NAME} ${PIGPIO_LIBRARY})
 endif()
