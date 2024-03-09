@@ -8,6 +8,15 @@ namespace lidar::transmission::stl {
 
      #pragma pack(push, 1)  
      /**
+      * @struct Point
+      * @brief Represents a single point of data from Lidar.
+      */
+     struct PointData {
+          std::uint16_t distance; ///< Distance measurement
+          std::uint8_t intensity; ///< Intensity of the reflection
+     };
+
+     /**
       * @struct Packet
       * @brief Structure for receiving packets from a Lidar.
       * 
@@ -31,6 +40,7 @@ namespace lidar::transmission::stl {
 
                return static_cast<uint16_t>(header_signature) << 8 | ver_len_signature; 
           }
+          
      };
      #pragma pack(pop)
 
