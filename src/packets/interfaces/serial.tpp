@@ -1,5 +1,4 @@
 #include "serial.h"
-#include <pigpio.h>
 #include <string.h>
 namespace lidar::transmission{
       template<typename Packet>

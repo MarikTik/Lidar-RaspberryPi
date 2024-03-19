@@ -15,15 +15,26 @@ namespace lidar::transmission::stl {
           std::uint16_t distance; ///< Distance measurement
           std::uint8_t intensity; ///< Intensity of the reflection
      };
-
      /**
       * @struct Packet
       * @brief Structure for receiving packets from a Lidar.
       * 
       * @tparam N Number of points in a single frame. Defaults to `points_per_packet_default`.
       */
+     template<typename Packet>
+     struct StlPacketBase{
+          constexpr PointData* point_data(){
+               return static_cast<Packet*>(this)->points;
+          }
+          constexpr std::size_t point_count(){
+               return static_cast<Packet*>(this)->points.size();
+          }
+     };
      template<std::size_t N = points_per_packet_default>
-     struct Packet : public PacketBase<Packet<N>> {
+     struct Packet 
+          : public PacketBase<Packet<N>>,
+            public StlPacketBase<Packet<N>>
+          {
           std::uint8_t header; ///< Packet header
           std::uint8_t ver_len; ///< Version and length
           std::uint16_t speed; ///< Rotation speed

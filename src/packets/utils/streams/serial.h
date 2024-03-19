@@ -1,13 +1,15 @@
 #pragma once
 #include <atomic>
-#include <stdint.h>
+#include <cstdint>
 #include <unistd.h>
 namespace internals{
      #include <linux/termios.h>
+  
 }
 
 class SerialStream{
 public:
+    
      SerialStream();
 
      bool open(const char* port, uint32_t baud_rate);
