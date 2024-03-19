@@ -1,6 +1,6 @@
 #pragma once
 #include <cstdint>
-#include "packet_base.h"
+#include "packet_base.hpp"
 
 /// @brief /stl packets work with any of the followign models: STL-27L, STL-19-P, STL-26N, STL-06P, STL-26
 namespace lidar::transmission::stl {
@@ -21,15 +21,6 @@ namespace lidar::transmission::stl {
       * 
       * @tparam N Number of points in a single frame. Defaults to `points_per_packet_default`.
       */
-     template<typename Packet>
-     struct StlPacketBase{
-          constexpr PointData* point_data(){
-               return static_cast<Packet*>(this)->points;
-          }
-          constexpr std::size_t point_count(){
-               return static_cast<Packet*>(this)->points.size();
-          }
-     };
      template<std::size_t N = points_per_packet_default>
      struct Packet 
           : public PacketBase<Packet<N>>,
