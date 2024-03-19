@@ -1,0 +1,14 @@
+{
+     "configurations": [
+         {
+             "name": "Linux",
+             "includePath": [
+                 "${workspaceFolder}/**",
+                 "${workspaceFolder}/src"
+             ],
+             // Other settings...
+         }
+     ],
+     "version": 4
+ }
+ 
