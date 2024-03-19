@@ -12,26 +12,15 @@ namespace lidar::transmission{
     }
      
 
-    template<typename TPacket>
-    template<typename Byte, std::size_t N>
-    inline constexpr TPacket PacketBase<TPacket>::create(const Byte(& bytes)[N])
+    template <typename TPacket>
+    template<typename Container, typename>
+    TPacket PacketBase<TPacket>::create(const Container& raw_packet)
     {
-        static_assert(
-            std::is_same_v<Byte, uint8_t> || std::is_same_v<Byte, int8_t>,
-            "create only accepts 8-bit sequences, either uint8_t or int8_t."    
-        );
-        static_assert(
-            N == sizeof(TPacket),
-            "The size of the passed bytes array should exactly match the size of TPacket."
-        );
-        static_assert(
-            std::is_trivially_copyable_v<TPacket>,
-            "TPacket must be trivially copyable."
-        );
-        // no checks for endianess!
+        using value_type = typename Container::value_type;
 
+        assert(sizeof(TPacket) == raw_packet.size() * sizeof(value_type));
         TPacket packet;
-        std::memcpy(&packet, bytes, sizeof(TPacket)); 
+        std::copy(raw_packet.begin(), raw_packet.end(), reinterpret_cast<value_type*>(&packet));
         return packet;
     }
 
