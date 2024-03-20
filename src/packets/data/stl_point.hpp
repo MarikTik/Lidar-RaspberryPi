@@ -4,19 +4,27 @@
 
 namespace lidar::data::stl{
      using namespace std;
-
+     
+     
      struct Point{ 
-          float angle;
-          uint16_t distance;
-          uint8_t intensity;
-          uint16_t time_stamp; 
+          
+          float angle; //degrees
+          uint16_t distance; //millimeters
+        
+          uint8_t intensity; 
 
           inline float x();
           inline float y();
 
           Point() = default;
-          constexpr Point(float angle, uint16_t distance, uint8_t intensity, uint64_t stamp);
-          
+          constexpr Point(float angle, uint16_t distance, uint8_t intensity);
+
+          struct SuppliedData{
+               uint16_t angular_speed; //degrees per second
+               uint16_t timestamp; //milliseconds
+               SuppliedData() = default;
+               constexpr SuppliedData(uint16_t angular_speed, uint16_t timestamp);
+          };
      };
 
      inline float Point::x(){
@@ -28,9 +36,14 @@ namespace lidar::data::stl{
      {
           return distance * sin(angle * M_PI / 180.0f);
      }
-
-     constexpr Point::Point(float angle, uint16_t distance, uint8_t intensity, uint64_t stamp)
-          : angle(angle), distance(distance), intensity(intensity), time_stamp(stamp)
+     
+     
+     constexpr Point::Point(float angle, uint16_t distance, uint8_t intensity)
+          : angle(angle), distance(distance), intensity(intensity)
+     {
+     }
+     constexpr Point::SuppliedData::SuppliedData(uint16_t angular_speed, uint16_t timestamp)
+          : angular_speed(angular_speed), timestamp(timestamp)
      {
      }
 }
