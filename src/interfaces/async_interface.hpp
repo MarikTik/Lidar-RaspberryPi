@@ -9,8 +9,9 @@ public:
           : _io_context(io_context){
            
      }
-     bool open(){
-          return static_cast<InterfaceImpl*>(this)->open();
+     template<typename... Args>
+     bool open(Args&&... args){
+          return static_cast<InterfaceImpl*>(this)->open(std::forward<Args>(args)...);
      }
      void close(){
           static_cast<InterfaceImpl*>(this)->close();
