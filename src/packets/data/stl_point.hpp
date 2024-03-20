@@ -3,15 +3,10 @@
 #include <cmath>
 
 namespace lidar::data::stl{
-     using namespace std;
-     
-     
      struct Point{ 
-          
           float angle; //degrees
           uint16_t distance; //millimeters
-        
-          uint8_t intensity; 
+          uint8_t intensity; // 0-255
 
           inline float x();
           inline float y();
@@ -28,7 +23,6 @@ namespace lidar::data::stl{
      };
 
      inline float Point::x(){
-
           return distance * cos(angle * M_PI / 180.0f);
      }
 
@@ -37,11 +31,11 @@ namespace lidar::data::stl{
           return distance * sin(angle * M_PI / 180.0f);
      }
      
-     
      constexpr Point::Point(float angle, uint16_t distance, uint8_t intensity)
           : angle(angle), distance(distance), intensity(intensity)
      {
      }
+
      constexpr Point::SuppliedData::SuppliedData(uint16_t angular_speed, uint16_t timestamp)
           : angular_speed(angular_speed), timestamp(timestamp)
      {
