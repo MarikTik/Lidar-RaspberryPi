@@ -9,7 +9,7 @@ namespace lidar::data::stl{
           float angle;
           uint16_t distance;
           uint8_t intensity;
-          uint64_t time_stamp; 
+          uint16_t time_stamp; 
 
           inline float x();
           inline float y();
