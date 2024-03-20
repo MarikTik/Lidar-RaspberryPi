@@ -9,8 +9,8 @@ public:
           : _io_context(io_context){
            
      }
-     void open(){
-          static_cast<InterfaceImpl*>(this)->open();
+     bool open(){
+          return static_cast<InterfaceImpl*>(this)->open();
      }
      void close(){
           static_cast<InterfaceImpl*>(this)->close();
