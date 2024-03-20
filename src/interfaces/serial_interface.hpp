@@ -1,11 +1,10 @@
 #pragma once
 #include "async_interface.hpp"
-#include <boost/asio/io_context.hpp>
 #include <boost/asio/serial_port.hpp>
-#include <boost/system/error_code.hpp>
 #include <iostream>
 #include <shared_mutex>
 #include <condition_variable>
+#include <boost/circular_buffer.hpp>
 
 using namespace boost;
 
@@ -30,13 +29,13 @@ public:
      bool is_open() const;
      bool open(const std::string& port);
      void close();
-     void set_buffer_size(std::size_t size);
+     void set_buffer_capacity(std::size_t size);
      
 private:
      boost::asio::serial_port _serial_port;
      connection_settings _connection_settings;
 
-     std::vector<uint8_t> _buffer;
+     circular_buffer<uint8_t> _scan_buffer;
      mutable std::shared_mutex _mutex;
      mutable std::condition_variable _cv;
 };

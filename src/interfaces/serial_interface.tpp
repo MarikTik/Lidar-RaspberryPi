@@ -1,4 +1,6 @@
 #include "serial_interface.hpp"
+#include <boost/system/error_code.hpp>
+
 
 SerialInterface::SerialInterface(asio::io_context &io_context)
      : AsyncInterface<SerialInterface>(io_context), _serial_port(io_context)
@@ -51,27 +53,27 @@ template<typename Data> std::vector<Data> SerialInterface::async_read() const
 {
 }
 
-void SerialInterface::set_buffer_size(std::size_t size)
+void SerialInterface::set_buffer_capacity(std::size_t size)
 {
-     if (size < _buffer.capacity())
-     { 
-          std::vector<uint8_t> resized_scan_buffer(size); 
-          std::copy(_buffer.end() - size, _buffer.end(), resized_scan_buffer.begin()); //copying the most recent data of the original vector to the resized one.
-          _buffer = std::move(resized_scan_buffer); 
-     }
-     else _buffer.reserve(size);
+     _scan_buffer.set_capacity(size);
 }
 
 void SerialInterface::async_scan()
 {
-     std::unique_lock<std::shared_mutex> lock(_mutex);
-     static auto read_handler = [this](const system::error_code& ec, std::size_t bytes_transferred)
+     uint8_t buffer[1024];
+     static auto read_handler = [this, &buffer](const system::error_code& ec, std::size_t bytes_transferred)
      {
           if(ec){ 
                std::cerr << "Error: " << ec.message() << "\n";
                return;
           }
+          else{
+               std::unique_lock<std::shared_mutex> lock(_mutex);
+               for (std::size_t i = 0; i < bytes_transferred; ++i)
+                    _scan_buffer.push_back(buffer[i]);
+          }
      };
-     //! Naive and incorrect implementation
-     _serial_port.async_read_some(asio::buffer(_buffer), read_handler);  
+
+
+     _serial_port.async_read_some(asio::buffer(buffer), read_handler);  
 }
