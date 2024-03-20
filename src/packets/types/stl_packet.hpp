@@ -22,7 +22,7 @@ namespace lidar::transmission::stl {
       * @tparam N Number of points in a single frame. Defaults to `points_per_packet_default`.
       */
      template<std::size_t N = points_per_packet_default>
-     struct Packet : public PacketBase<Packet<N>>,
+     struct Packet : public PacketBase<Packet<N>>
      {
           std::uint8_t header; ///< Packet header
           std::uint8_t ver_len; ///< Version and length
