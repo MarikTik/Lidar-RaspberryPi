@@ -2,33 +2,38 @@
 #include "async_interface.hpp"
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/serial_port.hpp>
+#include <boost/system/error_code.hpp>
 #include <iostream>
 #include <shared_mutex>
 #include <condition_variable>
 
+using namespace boost;
 
-class SerialInterface final : public AsyncInterface<SerialInterface>{
+class SerialInterface;
+
+template<>
+struct ConnectionSettings<SerialInterface>{
+     unsigned int baud_rate;
+     unsigned int character_size;
+     asio::serial_port_base::stop_bits::type stop_bits;
+     asio::serial_port_base::parity::type parity;
+     asio::serial_port_base::flow_control::type flow_control;
+};
+
+class SerialInterface : public AsyncInterface<SerialInterface>{
+     using connection_settings = ConnectionSettings<SerialInterface>;
 public:
      SerialInterface(boost::asio::io_context& io_context);
-     void async_read() const;
+     template<typename Data>
+     std::vector<Data> async_read() const;
      void async_scan();
      bool is_open() const;
-     void open(const std::string& port);
+     bool open(const std::string& port);
      void close();
-     
-     void set_connection_settings(SerialInterface::ConnectionSettings settings);
-
-     struct ConnectionSettings{
-          unsigned int baud_rate;
-          unsigned int character_size;
-          asio::serial_port_base::stop_bits::type stop_bits;
-          asio::serial_port_base::parity::type parity;
-          asio::serial_port_base::flow_control::type flow_control;
-     };
 
 private:
      boost::asio::serial_port _serial_port;
-     ConnectionSettings _connection_settings;
+     connection_settings _connection_settings;
 
      mutable std::shared_mutex _mutex;
      mutable std::condition_variable _cv;
@@ -36,12 +41,12 @@ private:
 };
 
 
-SerialInterface::SerialInterface(boost::asio::io_context &io_context)
+SerialInterface::SerialInterface(asio::io_context &io_context)
      : AsyncInterface<SerialInterface>(io_context), _serial_port(io_context)
 {
 }
 
-void SerialInterface::open(const std::string& port)
+bool SerialInterface::open(const std::string& port)
 {
      system::error_code ec;
      if (_serial_port.is_open()){
@@ -68,7 +73,6 @@ void SerialInterface::open(const std::string& port)
           return false;
      }
      return true;
-
 }
 
 void SerialInterface::close()
@@ -81,7 +85,7 @@ bool SerialInterface::is_open() const
 {
      return _serial_port.is_open();
 }
-void SerialInterface::async_read() const
+template<typename Data> std::vector<Data> SerialInterface::async_read() const
 {
 }
 
@@ -89,10 +93,6 @@ void SerialInterface::async_scan()
 {
 }
 
-void SerialInterface::set_connection_settings(SerialInterface::ConnectionSettings settings)
-{
-     _connection_settings = settings;
-}
-
-
  
+
+
