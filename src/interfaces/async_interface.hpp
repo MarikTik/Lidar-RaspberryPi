@@ -15,7 +15,7 @@ public:
      void close(){
           static_cast<InterfaceImpl*>(this)->close();
      }
-     void is_open(){
+     bool is_open(){
           static_cast<InterfaceImpl*>(this)->is_open();
      }
      void async_read(){
