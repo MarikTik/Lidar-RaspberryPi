@@ -16,10 +16,10 @@ public:
      void close(){
           static_cast<InterfaceImpl*>(this)->close();
      }
-     bool is_open(){
+     bool is_open() const{
           return static_cast<InterfaceImpl*>(this)->is_open();
      }
-     void async_read(){
+     void async_read() const{
           static_cast<InterfaceImpl*>(this)->async_read();
      }
      void async_scan(){
