@@ -9,12 +9,24 @@ public:
           : _io_context(io_context){
            
      }
+     void open(){
+          static_cast<InterfaceImpl*>(this)->open();
+     }
+     void close(){
+          static_cast<InterfaceImpl*>(this)->close();
+     }
+     void is_open(){
+          static_cast<InterfaceImpl*>(this)->is_open();
+     }
      void async_read(){
           static_cast<InterfaceImpl*>(this)->async_read();
      }
      void async_scan(){
           static_cast<InterfaceImpl*>(this)->async_scan();
      }
+     ~AsyncInterface(){
+          close();
+     }
 protected:
-     boost::asio::io_context _io_context;
+     boost::asio::io_context& _io_context;
 };
