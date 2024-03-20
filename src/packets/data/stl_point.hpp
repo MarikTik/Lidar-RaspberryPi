@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <cmath>
 
-namespace lidar::data{
+namespace lidar::data::stl{
      using namespace std;
 
      struct Point{ 
