@@ -16,7 +16,7 @@ public:
           static_cast<InterfaceImpl*>(this)->close();
      }
      bool is_open(){
-          static_cast<InterfaceImpl*>(this)->is_open();
+          return _is_open;
      }
      void async_read(){
           static_cast<InterfaceImpl*>(this)->async_read();
@@ -29,4 +29,5 @@ public:
      }
 protected:
      boost::asio::io_context& _io_context;
+     bool _is_open = false;
 };
