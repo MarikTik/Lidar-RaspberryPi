@@ -1,10 +1,12 @@
-# find_package(Boost REQUIRED COMPONENTS unit_test_framework)
-# include_directories(${Boost_INCLUDE_DIRS})
+find_package(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
+# find_package(Boost CONFIG COMPONENTS system filesystem unit_test_framework REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
 
-# add_executable(test test_example.cpp)
-# target_link_libraries(test ${Boost_LIBRARIES})
+file(GLOB_RECURSE TEST_SOURCES "*_test.cpp")
 
-# enable_testing()
-
-# # Add a test named "MyTest" that runs the executable "test_main"
-# add_test(NAME MyTest COMMAND test)
+foreach(TEST_SOURCE ${TEST_SOURCES})
+  get_filename_component(TEST_NAME ${TEST_SOURCE} NAME_WE)
+  add_executable(${TEST_NAME} ${TEST_SOURCE})
+  target_link_libraries(${TEST_NAME} ${Boost_LIBRARIES})
+  add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
+endforeach()

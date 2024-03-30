@@ -6,11 +6,13 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
-
 add_executable(${PROJECT_NAME} src/main.cpp)
 
 add_subdirectory(src)
+
+enable_testing()
 add_subdirectory(tests)
+
 
 find_package(Boost REQUIRED COMPONENTS system)
  
@@ -20,9 +22,7 @@ if(Boost_FOUND)
 else()
     message(FATAL_ERROR "Boost not found")
 endif()
-
-
-
+ 
 if(CMAKE_COMPILER_IS_GNUCXX)
     add_compile_options(-Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor
                         -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual
