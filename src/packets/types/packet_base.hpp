@@ -9,7 +9,7 @@ namespace lidar::transmission {
     template<typename TPacket>
     struct PacketBase {       
         static constexpr auto uid();
-
+        static constexpr bool is_valid_packet();
         template<typename Container, typename = std::enable_if_t<
                                                                  utilities::is_iterable_v<Container> and
                                                                  std::is_trivially_copyable_v<typename Container::value_type> 

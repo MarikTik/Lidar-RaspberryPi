@@ -4,13 +4,22 @@ namespace lidar::transmission{
     template <typename TPacket>
     constexpr auto PacketBase<TPacket>::uid()
     {
-         static_assert(
-             std::is_integral_v<decltype(TPacket::uid())>,   
-             "packet_type must implement a `uid` method and return an integral type"
-         );   
-         return TPacket::uid();
+        static_assert(
+            std::is_integral_v<decltype(TPacket::uid())>,   
+            "packet_type must implement a `uid` method and return an integral type"
+        );   
+        return TPacket::uid();
     }
-     
+    
+    template <typename TPacket>
+    bool PacketBase<TPacket>::is_valid_packet()
+    {
+        static_assert(
+            std::is_same_v<decltype(TPacket::is_valid_packet()), bool>,
+            "packet_type must implement a `is_valid_packet` method and return a boolean"
+        )
+        return TPacket::is_valid_packet();
+    }
 
     template <typename TPacket>
     template<typename Container, typename>
