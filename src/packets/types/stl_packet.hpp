@@ -4,7 +4,7 @@
 
 /// @brief /stl packets work with any of the followign models: STL-27L, STL-19-P, STL-26N, STL-06P, STL-26
 namespace lidar::transmission::stl {
-     static constexpr std::size_t points_per_packet_default = 12; ///< Default number of points per packet
+
 
      #pragma pack(push, 1)  
      /**
@@ -19,9 +19,9 @@ namespace lidar::transmission::stl {
       * @struct Packet
       * @brief Structure for receiving packets from a Lidar.
       * 
-      * @tparam N Number of points in a single frame. Defaults to `points_per_packet_default`.
+      * @tparam N Number of points in a single frame.
       */
-     template<std::size_t N = points_per_packet_default>
+     template<std::size_t N>
      struct Packet : public PacketBase<Packet<N>>
      {
           std::uint8_t header; ///< Packet header
@@ -34,14 +34,11 @@ namespace lidar::transmission::stl {
           std::uint8_t crc8; ///< CRC8 checksum, calculated last
 
           
-          static constexpr std::uint16_t uid(){
-               constexpr std::uint8_t header_signature = 0x54;  
-               constexpr std::uint8_t ver_len_signature = 0x2C;
-
-               return static_cast<uint16_t>(header_signature) << 8 | ver_len_signature; 
-          }
+          static constexpr std::uint16_t uid();
+          static bool is_valid_packet(Packet<N>& packet);
           
      };
      #pragma pack(pop)
-
 }
+
+#include "stl_packet.tpp"

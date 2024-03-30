@@ -17,7 +17,7 @@ namespace lidar::transmission{
         static_assert(
             std::is_same_v<decltype(TPacket::is_valid_packet()), bool>,
             "packet_type must implement a `is_valid_packet` method and return a boolean"
-        )
+        );
         return TPacket::is_valid_packet();
     }
 
