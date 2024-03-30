@@ -1,5 +1,5 @@
 #include "packet_base.hpp"
-
+#include <cassert>
 namespace lidar::transmission{
     template <typename TPacket>
     constexpr auto PacketBase<TPacket>::uid()
