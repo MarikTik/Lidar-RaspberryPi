@@ -7,7 +7,7 @@
 
 namespace lidar::transmission::stl{
      template <std::size_t N>
-     constexpr std::uint16_t Packet<N>::uid()
+     constexpr std::uint16_t Packet<N>::uid() const
      {
           constexpr std::uint8_t header_signature = 0x54;  
           constexpr std::uint8_t ver_len_signature = 0x2C;
@@ -17,9 +17,9 @@ namespace lidar::transmission::stl{
      using namespace lidar::verification;
 
      template<>
-     bool Packet<12>::is_valid_packet(Packet<12>& packet)
+     bool Packet<12>::is_valid() const
      {
-          return lidar::verification::crc8(packet, ld19::crc_table) == packet.crc8;
+          return lidar::verification::crc8(*this, ld19::crc_table) == this->crc8;
      }
 
 }

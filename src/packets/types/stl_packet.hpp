@@ -34,8 +34,8 @@ namespace lidar::transmission::stl {
           std::uint8_t crc8; ///< CRC8 checksum, calculated last
 
           
-          static constexpr std::uint16_t uid();
-          static bool is_valid_packet(Packet<N>& packet);
+          constexpr std::uint16_t uid() const;
+          bool is_valid() const;
           
      };
      #pragma pack(pop)
