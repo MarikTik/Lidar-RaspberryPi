@@ -6,7 +6,7 @@ namespace lidar::data{
      extract_from(const transmission::stl::Packet<N> &packet)
      {
           std::array<data::stl::Point, N> points;
-          const float step = (packet.end_angle - packet.start_angle) / (N - 1);
+          const float step = (packet.end_angle - packet.start_angle) / static_cast<float>(N - 1);
           for (std::size_t i = 0; i < N; i++)
           {    
                points[i] = data::stl::Point(

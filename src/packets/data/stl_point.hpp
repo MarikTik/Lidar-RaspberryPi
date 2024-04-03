@@ -7,7 +7,7 @@ namespace lidar::data::stl{
      using namespace transmission::stl;
      struct Point{ 
           float angle; //radians (0-2π)
-          uint16_t distance; //millimeters
+          float distance; //meters
           uint8_t intensity; // 0-255
 
           inline float x();
@@ -34,15 +34,15 @@ namespace lidar::data::stl{
      {
           return distance * sin(angle);
      }
-     
+
      inline constexpr Point::Point(float angle, uint16_t distance, uint8_t intensity)
-          : angle(angle * (M_PI / 18000.f)), distance(distance), intensity(intensity)
+          : angle(angle * (M_PI / 18000.f)), distance(distance / 100.f), intensity(intensity)
      {
      }
    
      template <size_t N>
      inline constexpr Point::SuppliedData::SuppliedData(const Packet<N> &packet)
-          : angular_speed(packet.speed / (M_PI / 18000.f)), timestamp(packet.timestamp)
+          : angular_speed(packet.speed * (M_PI / 180.f)), timestamp(packet.timestamp)
      {
      }
 
