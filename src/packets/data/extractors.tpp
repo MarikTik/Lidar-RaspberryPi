@@ -10,12 +10,12 @@ namespace lidar::data{
           for (std::size_t i = 0; i < N; i++)
           {    
                points[i] = data::stl::Point(
-                    (packet.start_angle + step * i)/ 100.0f,
+                    (packet.start_angle + step * i),
                     (packet.points[i].distance),
                     (packet.points[i].intensity)
                );
           }
-          data::stl::Point::SuppliedData supplied_data(packet.speed, packet.timestamp);
+          data::stl::Point::SuppliedData supplied_data(packet);
           return {points, supplied_data};
           // step = (end_angle – start_angle)/(len – 1);
           // angle = start_angle + step*i;
