@@ -26,6 +26,8 @@ BOOST_AUTO_TEST_CASE(StlPacketCreateTest){
      BOOST_CHECK_EQUAL(packet.points[11].distance, 0xc0);
      BOOST_CHECK_EQUAL(packet.points[11].intensity, 0xe5);
      BOOST_CHECK_EQUAL(packet.end_angle, 33470);
+     BOOST_CHECK_EQUAL(packet.timestamp, 0x1a3a);
+     BOOST_CHECK_EQUAL(packet.crc8, 80);
 }
 
 BOOST_AUTO_TEST_CASE(StlPacketIsValid)
