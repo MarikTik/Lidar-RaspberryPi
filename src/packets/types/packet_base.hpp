@@ -1,7 +1,6 @@
 #pragma once
 #include <cstdint>
 #include <type_traits>
-#include "utilities/type_traits.hpp"
 
 namespace lidar::transmission {
 
