@@ -21,7 +21,7 @@ namespace lidar::transmission{
     template<typename const_iterator>
     TPacket PacketBase<TPacket>::create(const_iterator begin, const_iterator end)
     {
-        static_assert(utilities::is_byte_iterator<const_iterator>, "create() iteartors require to be byte iterators");
+        static_assert(utilities::is_byte_iterator_v<const_iterator>, "create() iteartors require to be byte iterators");
         TPacket packet;
         if constexpr (std::is_trivially_copyable_v<TPacket> && std::is_standard_layout_v<TPacket>) {
             std::memcpy(&packet, &(*begin), sizeof(TPacket));
