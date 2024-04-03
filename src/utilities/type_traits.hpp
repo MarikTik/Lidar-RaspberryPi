@@ -16,11 +16,18 @@ namespace lidar::utilities{
      constexpr bool is_iterable_v = is_iterable<T>::value;
 
 
-     template<typename iterator>
-     constexpr bool is_byte_iterator() {
-          using value_type = typename std::iterator_traits<iterator>::value_type;
-          return std::is_same_v<value_type, char> or std::is_same_v<value_type, unsigned char>;
-     }
+     template<typename T, typename = void>
+     struct is_byte_iterator : std::false_type {};
+
+     template<typename T>
+     struct is_byte_iterator<T, std::void_t<
+                                             typename std::iterator_traits<T>::value_type
+                                            >
+                            > : std::disjunction<
+                                                 std::is_same<typename std::iterator_traits<T>::value_type, char>,
+                                                 std::is_same<typename std::iterator_traits<T>::value_type, unsigned char>
+                                                > {};
+
 }
 
 
