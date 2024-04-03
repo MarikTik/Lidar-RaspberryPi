@@ -35,10 +35,10 @@ namespace lidar::transmission::stl {
 
           
           constexpr std::uint16_t uid() const;
-          bool is_valid() const;
-          
+          bool is_valid() const;          
      };
      #pragma pack(pop)
+   
 }
 
 #include "stl_packet.tpp"

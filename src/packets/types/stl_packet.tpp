@@ -20,7 +20,9 @@ namespace lidar::transmission::stl{
      bool Packet<12>::is_valid() const
      {
           return lidar::verification::crc8(*this, ld19::crc_table) == this->crc8;
-     }
+     }    
+
+    
 
 }
 

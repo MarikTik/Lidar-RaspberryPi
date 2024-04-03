@@ -8,9 +8,7 @@ namespace lidar::transmission {
     using namespace lidar;
     template<typename TPacket>
     struct PacketBase {
-        using uid_type = decltype(std::declval<TPacket>().uid());
-
-        constexpr uid_type uid() const;
+        constexpr auto uid() const;
         bool is_valid() const;
                
         template<typename const_iterator>
