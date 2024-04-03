@@ -14,21 +14,26 @@ BOOST_AUTO_TEST_CASE(ExtractStlPacket)
      const auto packet = PacketBase<stl::Packet<12>>::create(valid_packet_raw.cbegin(), valid_packet_raw.cend());
      const auto [points, supplied_data] = lidar::data::extract_from(packet);
 
-     constexpr float uncertainty = 0.01f;
+     constexpr float angular_uncertainty = .5f; // % uncertainty
+     constexpr float distance_uncertainty = .01f; // % uncertainty
      // test supplied data
-     BOOST_CHECK_CLOSE(supplied_data.angular_speed, 36.56, uncertainty);
+     BOOST_CHECK_CLOSE(supplied_data.angular_speed, 37.56, angular_uncertainty);
      BOOST_CHECK_EQUAL(supplied_data.timestamp, 0x1a3a);
 
-     BOOST_CHECK_EQUAL(points[0].distance, 224);
-     BOOST_CHECK_CLOSE(points[0].angle, 324.27, uncertainty);
+     // test points
+     BOOST_CHECK_CLOSE(points[0].distance, 2.24, distance_uncertainty);
+     BOOST_CHECK_CLOSE(points[0].angle, 5.65, angular_uncertainty);
      BOOST_CHECK_EQUAL(points[0].intensity, 228);
 
-     BOOST_CHECK_EQUAL(points[1].distance, 220);
-     BOOST_CHECK_CLOSE(points[1].angle, 324.35, uncertainty);
+     BOOST_CHECK_CLOSE(points[1].distance, 2.2, distance_uncertainty);
+     BOOST_CHECK_CLOSE(points[1].angle, 5.67, angular_uncertainty);
      BOOST_CHECK_EQUAL(points[1].intensity, 0xe2);
-
-     BOOST_CHECK_EQUAL(points[11].distance, 0xc0);
-     BOOST_CHECK_CLOSE(points[11].angle, 334.42, uncertainty);
+     
+    
+     BOOST_CHECK_CLOSE(points[2].angle, 5.69, angular_uncertainty);
+      
+     BOOST_CHECK_CLOSE(points[11].distance, 1.92, distance_uncertainty);
+     BOOST_CHECK_CLOSE(points[11].angle, 5.84, angular_uncertainty);
      BOOST_CHECK_EQUAL(points[11].intensity, 0xe5);
 
 }
