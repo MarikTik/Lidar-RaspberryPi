@@ -14,4 +14,13 @@ namespace lidar::utilities{
 
      template <typename T>
      constexpr bool is_iterable_v = is_iterable<T>::value;
+
+
+     template<typename iterator>
+     constexpr bool is_byte_iterator(iterator iterator) {
+          using value_type = typename std::iterator_traits<iterator>::value_type;
+          return std::is_same_v<value_type, char> or std::is_same_v<value_type, unsigned char>;
+     }
 }
+
+
