@@ -9,11 +9,12 @@ std::array<uint8_t, 47> valid_packet_raw = {0x54, 0x2C, 0x68, 0x08, 0xAB, 0x7E, 
 
 
 BOOST_AUTO_TEST_CASE(StlPacketUidTest){
-    BOOST_CHECK_EQUAL(lidar::transmission::stl::Packet<12>::uid(), 0x542C);
+    auto stl_packet = stl::Packet<12>{};
+    BOOST_CHECK_EQUAL(stl_packet.uid(), 0x542C);
 }
 
 BOOST_AUTO_TEST_CASE(StlPacketCreateTest){
-     auto packet = PacketBase<stl::Packet<12>>::create(valid_packet_raw);
+     auto packet = PacketBase<stl::Packet<12>>::create(valid_packet_raw.cbegin(), valid_packet_raw.cend());
      BOOST_CHECK_EQUAL(packet.header, 0x54);
      BOOST_CHECK_EQUAL(packet.ver_len, 0x2C);
      BOOST_CHECK_EQUAL(packet.speed, 2152);
@@ -25,11 +26,10 @@ BOOST_AUTO_TEST_CASE(StlPacketCreateTest){
      BOOST_CHECK_EQUAL(packet.points[11].distance, 0xc0);
      BOOST_CHECK_EQUAL(packet.points[11].intensity, 0xe5);
      BOOST_CHECK_EQUAL(packet.end_angle, 33470);
-      
 }
 
 BOOST_AUTO_TEST_CASE(StlPacketIsValid)
 {
-     
-  
+     auto packet = PacketBase<stl::Packet<12>>::create(valid_packet_raw.cbegin(), valid_packet_raw.cend());
+     BOOST_CHECK_EQUAL(packet.is_valid(), true);
 }
