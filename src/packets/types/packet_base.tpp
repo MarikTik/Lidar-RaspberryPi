@@ -10,7 +10,7 @@ namespace lidar::transmission{
     }
     
     template <typename TPacket>
-    constexpr bool PacketBase<TPacket>::is_valid() const
+    bool PacketBase<TPacket>::is_valid() const
     {
         return static_cast<TPacket*>(this)->is_valid_packet();
     }

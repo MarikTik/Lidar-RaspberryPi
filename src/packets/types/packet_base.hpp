@@ -11,11 +11,10 @@ namespace lidar::transmission {
         using uid_type = decltype(std::declval<TPacket>().uid());
 
         constexpr uid_type uid() const;
-        constexpr bool is_valid() const;
+        bool is_valid() const;
                
         template<typename const_iterator>
         static TPacket create(const_iterator begin, const_iterator end);
-
     };
     
 }
